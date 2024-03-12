@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public bool hasPowerUp;
     private float powerUpStrength = 15f;
     public GameObject powerUpIndicator;
+    private Vector3 powerUpIndicatorOffset = new Vector3(0f, -0.5f, 0f);
 
     private void Start(){
         _playerRb = GetComponent<Rigidbody>();
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private void Update() {
         float forwardInput = Input.GetAxis("Vertical");
         _playerRb.AddForce(focalPoint.transform.forward * forwardInput * speed);
+        powerUpIndicator.transform.position = transform.position + powerUpIndicatorOffset;
     }
 
     private void OnTriggerEnter(Collider other) {
