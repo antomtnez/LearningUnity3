@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     public bool hasPowerUp;
     private float powerUpStrength = 15f;
+    public GameObject powerUpIndicator;
 
     private void Start(){
         _playerRb = GetComponent<Rigidbody>();
@@ -24,6 +26,7 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("PowerUp")){
             hasPowerUp = true;
             Destroy(other.gameObject);
+            powerUpIndicator.SetActive(true);
             StartCoroutine(PowerupCountdownRoutine());
         }    
     }
@@ -39,5 +42,6 @@ public class PlayerController : MonoBehaviour
     IEnumerator PowerupCountdownRoutine(){
         yield return new WaitForSeconds(7);
         hasPowerUp = false;
+        powerUpIndicator.SetActive(false);
     }
 }
